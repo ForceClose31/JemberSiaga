@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jember_siaga/views/auth/sign_in.dart';
 
 void main()
 {
@@ -13,6 +14,7 @@ class JemberSiaga extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Poppins'),
       debugShowCheckedModeBanner: false,
+      home: const SignInView(),
     );
   }
 }
