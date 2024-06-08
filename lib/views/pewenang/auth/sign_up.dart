@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jember_siaga/views/auth/sign_in.dart';
+import 'package:jember_siaga/views/pewenang/auth/sign_in.dart';
 import 'package:jember_siaga/widgets/custom_button.dart';
 import 'package:jember_siaga/widgets/custom_dialog.dart';
 import 'package:jember_siaga/widgets/custom_textfield.dart';
@@ -155,7 +155,7 @@ class _SignUpViewState extends State<SignUpView> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const SignInView(),
+                          builder: (context) => const SignInPewenangView(),
                         ),
                       );
                     },

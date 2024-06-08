@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jember_siaga/views/pelapor/homepage.dart';
-import 'package:jember_siaga/views/pelapor/profil_pelapor.dart';
+import 'package:jember_siaga/views/pelapor/profile/profil_pelapor.dart';
 
 class NavbarPelapor extends StatefulWidget {
   final int initialIndex;

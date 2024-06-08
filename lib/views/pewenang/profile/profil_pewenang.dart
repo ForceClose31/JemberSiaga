@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:jember_siaga/views/pewenang/profile/edit_profil_pewenang.dart';
+import 'package:jember_siaga/views/splash.dart';
 
-class EditProfilPelaporView extends StatefulWidget {
-  const EditProfilPelaporView({super.key});
+class ProfilpewenangView extends StatefulWidget {
+  const ProfilpewenangView({super.key});
 
   @override
-  State<EditProfilPelaporView> createState() => _EditProfilPelaporViewState();
+  State<ProfilpewenangView> createState() => _ProfilpewenangViewState();
 }
 
-class _EditProfilPelaporViewState extends State<EditProfilPelaporView> {
+class _ProfilpewenangViewState extends State<ProfilpewenangView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Akun Saya',
+          'Profil',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+
         ),
+        automaticallyImplyLeading: false,
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -45,12 +49,12 @@ class _EditProfilPelaporViewState extends State<EditProfilPelaporView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Trio wikwik',
+                            'Pemadam Kebakaran 1',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                           Text(
-                            'triowikwik@mail.unej.ac.id',
+                            'pemadam1@mail.unej.ac.id',
                             style: TextStyle(
                                 fontSize: 13,
                                 color: Color.fromRGBO(171, 171, 171, 1)),
@@ -61,29 +65,47 @@ class _EditProfilPelaporViewState extends State<EditProfilPelaporView> {
                   ],
                 ),
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Nama'),
-                  Text('wikwik')
+                  const Text('Perbarui Informasi Akun'),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const EditProfilPewenangView(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15,
+                    ),
+                  )
                 ],
               ),
-              const SizedBox(height: 20,),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Email'),
-                  Text('triowikwik@mail.unej.ac.id')
-                ],
+
+              const SizedBox(
+                height: 10,
               ),
-              const SizedBox(height: 20,),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Username'),
-                  Text('triowikwik123')
-                ],
-              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SplahView(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Keluar',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+              )
             ],
           ),
         ),

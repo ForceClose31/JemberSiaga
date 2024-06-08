@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jember_siaga/views/pelapor/laporan_kriminal.dart';
+import 'package:jember_siaga/views/pelapor/report/kebakaran/laporan_kebakaran.dart';
+import 'package:jember_siaga/views/pelapor/report/kecelakaan/laporan_kecelakaan.dart';
+import 'package:jember_siaga/views/pelapor/report/kriminal/laporan_kriminal.dart';
 
 class HomePagePelaporView extends StatelessWidget {
   const HomePagePelaporView({super.key});
@@ -90,7 +92,16 @@ class HomePagePelaporView extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LaporanKebakaranView(),
+                  ),
+                );
+              },
+            child: Container(
               padding: const EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
@@ -113,7 +124,17 @@ class HomePagePelaporView extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LaporanKecelakaanView(),
+                  ),
+                );
+              },
+              child: Container(
               padding: const EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
@@ -136,6 +157,8 @@ class HomePagePelaporView extends StatelessWidget {
                 ],
               ),
             ),
+            ),
+
           ],
         ),
       ),

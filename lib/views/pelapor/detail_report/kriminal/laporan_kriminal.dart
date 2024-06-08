@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jember_siaga/utils/colors.dart';
+import 'package:jember_siaga/views/pelapor/report/kriminal/next_laporan_kriminal.dart';
 import 'package:jember_siaga/widgets/custom_textfield.dart';
 
 class LaporanKriminalView extends StatefulWidget {
@@ -9,20 +11,26 @@ class LaporanKriminalView extends StatefulWidget {
 }
 
 class _LaporanKriminalViewState extends State<LaporanKriminalView> {
-  late TextEditingController emailController;
-  late TextEditingController passwordController;
+  late TextEditingController namaController;
+  late TextEditingController alamatController;
+  late TextEditingController teleponController;
+  late TextEditingController jenisController;
 
   @override
   void initState() {
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
+    namaController = TextEditingController();
+    alamatController = TextEditingController();
+    teleponController = TextEditingController();
+    jenisController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    namaController.dispose();
+    alamatController.dispose();
+    teleponController.dispose();
+    jenisController.dispose();
     super.dispose();
   }
 
@@ -53,7 +61,7 @@ class _LaporanKriminalViewState extends State<LaporanKriminalView> {
               height: 7,
             ),
             CustomTextField(
-              controller: emailController,
+              controller: namaController,
               hintText: "cth: trio wikwik",
             ),
             const SizedBox(
@@ -70,7 +78,7 @@ class _LaporanKriminalViewState extends State<LaporanKriminalView> {
               height: 7,
             ),
             CustomTextField(
-              controller: passwordController,
+              controller: alamatController,
               hintText: "cth: Jember, Jawa Timur",
             ),
             const SizedBox(
@@ -87,7 +95,7 @@ class _LaporanKriminalViewState extends State<LaporanKriminalView> {
               height: 7,
             ),
             CustomTextField(
-              controller: emailController,
+              controller: teleponController,
               hintText: "cth: 082168684343",
             ),
             const SizedBox(
@@ -104,12 +112,41 @@ class _LaporanKriminalViewState extends State<LaporanKriminalView> {
               height: 7,
             ),
             CustomTextField(
-              controller: passwordController,
+              controller: jenisController,
               hintText: "cth: Pencurian Hati",
             ),
             const SizedBox(
               height: 10,
             ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const NextLaporanKriminalView()),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryButtonColor,
+                        minimumSize: const Size(100, 33),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                      child: const Text(
+                        "Selanjutnya",
+                        style: TextStyle(color: Colors.white),
+                      ))
+                ],
+              ),
+            )
           ],
         ),
       ),

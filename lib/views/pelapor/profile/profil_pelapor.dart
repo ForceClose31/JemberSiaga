@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:jember_siaga/views/auth/sign_in.dart';
-import 'package:jember_siaga/views/pelapor/edit_profil_pelapor.dart';
-import 'package:jember_siaga/views/pelapor/notifikasi.dart';
+import 'package:jember_siaga/views/pelapor/profile/edit_profil_pelapor.dart';
+import 'package:jember_siaga/views/pewenang/shared/notifikasi.dart';
+import 'package:jember_siaga/views/splash.dart';
 
 class ProfilPelaporView extends StatefulWidget {
   const ProfilPelaporView({super.key});
 
   @override
-  State<ProfilPelaporView> createState() => _ProfilPelaporViewState();
+  State<ProfilPelaporView> createState() => _ProfilpewenangViewState();
 }
 
-class _ProfilPelaporViewState extends State<ProfilPelaporView> {
+class _ProfilpewenangViewState extends State<ProfilPelaporView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +19,7 @@ class _ProfilPelaporViewState extends State<ProfilPelaporView> {
           'Profil',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
         ),
+        automaticallyImplyLeading: false,
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -94,7 +94,7 @@ class _ProfilPelaporViewState extends State<ProfilPelaporView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const NotifikasiPelapor(),
+                          builder: (context) => const Notifikasipewenang(),
                         ),
                       );
                     },
@@ -115,7 +115,7 @@ class _ProfilPelaporViewState extends State<ProfilPelaporView> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SignInView(),
+                        builder: (context) => const SplahView(),
                       ),
                     );
                   },

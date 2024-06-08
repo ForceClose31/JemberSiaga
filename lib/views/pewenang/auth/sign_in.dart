@@ -1,20 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:jember_siaga/views/auth/reset_password.dart';
-import 'package:jember_siaga/views/auth/sign_up.dart';
-import 'package:jember_siaga/views/pelapor/navbar_pelapor.dart';
+import 'package:jember_siaga/views/pewenang/auth/reset_password.dart';
+import 'package:jember_siaga/views/pewenang/auth/sign_up.dart';
+import 'package:jember_siaga/views/pewenang/shared/navbar_pewenang.dart';
 import 'package:jember_siaga/widgets/custom_button.dart';
 import 'package:jember_siaga/widgets/custom_dialog.dart';
 import 'package:jember_siaga/widgets/custom_textfield.dart';
 
-class SignInView extends StatefulWidget {
-  const SignInView({super.key});
+class SignInPewenangView extends StatefulWidget {
+  const SignInPewenangView({super.key});
 
   @override
-  State<SignInView> createState() => _SignInViewState();
+  State<SignInPewenangView> createState() => _SignInViewState();
 }
 
-class _SignInViewState extends State<SignInView> {
+class _SignInViewState extends State<SignInPewenangView> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
 
@@ -125,7 +125,7 @@ class _SignInViewState extends State<SignInView> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const NavbarPelapor(initialIndex: 0),
+                        builder: (context) => const Navbarpewenang(initialIndex: 0),
                       ),
                     );
                   },
