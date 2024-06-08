@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:jember_siaga/views/auth/reset_password.dart';
 import 'package:jember_siaga/views/auth/sign_up.dart';
+import 'package:jember_siaga/views/pelapor/navbar_pelapor.dart';
 import 'package:jember_siaga/widgets/custom_button.dart';
 import 'package:jember_siaga/widgets/custom_dialog.dart';
 import 'package:jember_siaga/widgets/custom_textfield.dart';
@@ -120,7 +121,14 @@ class _SignInViewState extends State<SignInView> {
                   icon: Icons.check_circle_sharp,
                   title: "Berhasil",
                   message: "Login Berhasil",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NavbarPelapor(initialIndex: 0),
+                      ),
+                    );
+                  },
                 );
               },
             ),
