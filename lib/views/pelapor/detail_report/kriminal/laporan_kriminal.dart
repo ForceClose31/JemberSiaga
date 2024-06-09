@@ -126,12 +126,12 @@ class _LaporanKriminalViewState extends State<LaporanKriminalView> {
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const NextLaporanKriminalView()),
-                        );
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) =>
+                        //           const NextLaporanKriminalView()),
+                        // );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryButtonColor,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jember_siaga/provider/kecelakaan_provider.dart';
+import 'package:jember_siaga/provider/kriminal_provider.dart';
 import 'package:jember_siaga/provider/report_provider.dart';
 // import 'package:jember_siaga/views/pelapor/auth/sign_in.dart';
 import 'package:jember_siaga/views/splash.dart';
@@ -22,6 +23,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => ReportProvider()),
         ChangeNotifierProvider(create: (context) => KecelakaanProvider()),
+        ChangeNotifierProvider(create: (context) => KriminalProvider()),
       ],
       child: const JemberSiaga(),
     ),

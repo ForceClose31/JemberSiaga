@@ -126,11 +126,16 @@ class _LaporanKriminalViewState extends State<LaporanKriminalView> {
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  const NextLaporanKriminalView()),
+                                  NextLaporanKriminalView(
+                                    namaPelapor: namaController.text,
+                                    alamatPelapor: alamatController.text,
+                                    teleponPelapor: teleponController.text,
+                                    jenisKejahatan: jenisController.text,
+                                  )),
                         );
                       },
                       style: ElevatedButton.styleFrom(

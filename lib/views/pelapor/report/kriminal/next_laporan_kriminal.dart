@@ -1,12 +1,26 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:jember_siaga/utils/colors.dart';
 import 'package:jember_siaga/widgets/custom_textfield.dart';
+import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:jember_siaga/provider/kriminal_provider.dart';
 
 class NextLaporanKriminalView extends StatefulWidget {
-  const NextLaporanKriminalView({super.key});
+  final String namaPelapor;
+  final String alamatPelapor;
+  final String teleponPelapor;
+  final String jenisKejahatan;
+
+  const NextLaporanKriminalView({
+    Key? key,
+    required this.namaPelapor,
+    required this.alamatPelapor,
+    required this.teleponPelapor,
+    required this.jenisKejahatan,
+  }) : super(key: key);
 
   @override
   State<NextLaporanKriminalView> createState() =>
@@ -17,6 +31,7 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
   late TextEditingController jenisController;
   late TextEditingController catatanController;
   late TextEditingController fisikController;
+  File? selectedFile;
 
   @override
   void initState() {
@@ -36,8 +51,6 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
 
   @override
   Widget build(BuildContext context) {
-    FilePickerResult? result;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -99,15 +112,19 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
             const SizedBox(height: 7),
             ElevatedButton(
               onPressed: () async {
-                FilePickerResult? result = await FilePicker.platform.pickFiles(
-                  type: FileType.custom,
-                  allowedExtensions: ['jpg', 'png', 'jpeg'],
-                );
-
-                if (result != null) {
-                  File file = File(result.files.single.path!);
+                final XFile? image =
+                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                if (image != null) {
+                  setState(() {
+                    selectedFile = File(image.path);
+                  });
                 } else {
                   print("No file selected");
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("No file selected"),
+                    ),
+                  );
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -129,7 +146,45 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      String? downloadUrl;
+                      try {
+                        downloadUrl = await Provider.of<KriminalProvider>(
+                                context,
+                                listen: false)
+                            .uploadFile(selectedFile!);
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("File upload failed: $e"),
+                          ),
+                        );
+                        return;
+                      }
+
+                      if (downloadUrl == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Failed to get the download URL."),
+                          ),
+                        );
+                        return;
+                      }
+
+                      Map<String, dynamic> data = {
+                        "nama_pelapor": widget.namaPelapor,
+                        "alamat_pelapor": widget.alamatPelapor,
+                        "telepon_pelapor": widget.teleponPelapor,
+                        "jenis_kejahatan": widget.jenisKejahatan,
+                        "jenis_kelamin": jenisController.text,
+                        "ciri_fisik": fisikController.text,
+                        "catatan": catatanController.text,
+                        "bukti_url": downloadUrl,
+                      };
+
+                      await Provider.of<KriminalProvider>(context,
+                              listen: false)
+                          .addKriminalData(data);
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
