@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1009666332815",
+    "project_id": "jembersiaga-95df7",
+    "storage_bucket": "jembersiaga-95df7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009666332815:android:d1bf28531d94a048bbb8fa",
+        "android_client_info": {
+          "package_name": "com.example.jember_siaga"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG1N9WsUNM85K3Da4pmzC_6DX0cKfR3go"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

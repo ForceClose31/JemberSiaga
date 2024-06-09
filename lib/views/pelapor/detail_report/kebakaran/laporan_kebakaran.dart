@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jember_siaga/utils/colors.dart';
+import 'package:provider/provider.dart';
+import 'package:jember_siaga/provider/report_provider.dart';
 import 'package:jember_siaga/widgets/custom_textfield.dart';
 
 class LaporanKebakaranView extends StatefulWidget {
@@ -152,7 +153,24 @@ class _LaporanKebakaranViewState extends State<LaporanKebakaranView> {
                 controller: aksesController,
                 hintText: "cth: gang super kecil",
               ),
-              
+              const SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final provider = Provider.of<ReportProvider>(context, listen: false);
+                  provider.addReportKebakaran(
+                    nama: namaController.text,
+                    alamat: alamatController.text,
+                    telepon: teleponController.text,
+                    jenis: jenisController.text,
+                    tinggiluas: tinggiluasController.text,
+                    akses: aksesController.text,
+                  );
+                  // tambahkan navigasi atau tindakan lainnya setelah menyimpan data
+                },
+                child: Text('Submit'),
+              ),
             ],
           ),
         ),
