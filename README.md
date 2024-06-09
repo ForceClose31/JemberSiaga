@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # jember_siaga
 
 A new Flutter project.
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# JemberSiaga
+>>>>>>> 7a19d9491d8fbc30ec18d3f15043b57e72f87776
