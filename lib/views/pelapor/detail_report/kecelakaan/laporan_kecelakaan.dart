@@ -163,12 +163,12 @@ class _LaporanKecelakaanViewState extends State<LaporanKecelakaanView> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const NextPelaporanKecelakaanView()),
-                        );
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) =>
+                        //           const NextPelaporanKecelakaanView()),
+                        // );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryButtonColor,

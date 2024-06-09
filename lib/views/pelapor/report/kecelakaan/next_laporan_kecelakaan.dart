@@ -2,18 +2,24 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:jember_siaga/provider/kecelakaan_provider.dart';
 import 'package:jember_siaga/utils/colors.dart';
+import 'package:jember_siaga/views/pelapor/homepage.dart';
 import 'package:jember_siaga/widgets/custom_textfield.dart';
+import 'package:provider/provider.dart';
 
 class NextPelaporanKecelakaanView extends StatefulWidget {
-  const NextPelaporanKecelakaanView({super.key});
+  final Map<String, dynamic> kecelakaanData;
+
+  const NextPelaporanKecelakaanView({required this.kecelakaanData, super.key});
 
   @override
   State<NextPelaporanKecelakaanView> createState() =>
-      _NextPelaporanKecelakaanView();
+      _NextPelaporanKecelakaanViewState();
 }
 
-class _NextPelaporanKecelakaanView extends State<NextPelaporanKecelakaanView> {
+class _NextPelaporanKecelakaanViewState
+    extends State<NextPelaporanKecelakaanView> {
   late TextEditingController jumlahController;
   late TextEditingController kondisiController;
   late TextEditingController kronologiController;
@@ -39,7 +45,6 @@ class _NextPelaporanKecelakaanView extends State<NextPelaporanKecelakaanView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -103,7 +108,6 @@ class _NextPelaporanKecelakaanView extends State<NextPelaporanKecelakaanView> {
               controller: catatanController,
               hintText: "cth: Menyebabkan macet panjang",
             ),
-
             const Spacer(),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -111,24 +115,39 @@ class _NextPelaporanKecelakaanView extends State<NextPelaporanKecelakaanView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: secondaryButtonColor,
-                        minimumSize: const Size(300, 48),
-                      ),
-                      child: const Text(
-                        "Kirim Laporan",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                    )
+                    onPressed: () async {
+                      Map<String, dynamic> additionalData = {
+                        'jumlahKorban': jumlahController.text,
+                        'kondisiKorban': kondisiController.text,
+                        'kronologi': kronologiController.text,
+                        'catatanTambahan': catatanController.text,
+                      };
+                      widget.kecelakaanData.addAll(additionalData);
+                      final provider = Provider.of<KecelakaanProvider>(context,
+                          listen: false);
+
+                      provider.addKecelakaanData(widget.kecelakaanData);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomePagePelaporView(),
+                          ));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: secondaryButtonColor,
+                      minimumSize: const Size(300, 48),
+                    ),
+                    child: const Text(
+                      "Kirim Laporan",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),
+                    ),
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jember_siaga/provider/kecelakaan_provider.dart';
 import 'package:jember_siaga/provider/report_provider.dart';
 // import 'package:jember_siaga/views/pelapor/auth/sign_in.dart';
 import 'package:jember_siaga/views/splash.dart';
@@ -16,9 +17,12 @@ Future<void> main() async {
         storageBucket: 'jembersiaga-95df7.appspot.com'),
   );
   // await initializeDependencies();
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => ReportProvider(),
+ runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ReportProvider()),
+        ChangeNotifierProvider(create: (context) => KecelakaanProvider()),
+      ],
       child: const JemberSiaga(),
     ),
   );

@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:jember_siaga/utils/colors.dart';
 import 'package:jember_siaga/views/pelapor/report/kecelakaan/next_laporan_kecelakaan.dart';
 import 'package:jember_siaga/widgets/custom_textfield.dart';
-
 class LaporanKecelakaanView extends StatefulWidget {
   const LaporanKecelakaanView({Key? key}) : super(key: key);
 
   @override
   State<LaporanKecelakaanView> createState() => _LaporanKecelakaanViewState();
 }
-
 class _LaporanKecelakaanViewState extends State<LaporanKecelakaanView> {
   late TextEditingController namaController;
   late TextEditingController alamatController;
@@ -162,25 +160,35 @@ class _LaporanKecelakaanViewState extends State<LaporanKecelakaanView> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const NextPelaporanKecelakaanView()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: primaryButtonColor,
-                        minimumSize: const Size(100, 33),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
+                        onPressed: () {
+                          Map<String, dynamic> kecelakaanData = {
+                            'namaPelapor': namaController.text,
+                            'nomorTelepon': teleponController.text,
+                            'lokasiKejadian': lokasiController.text,
+                            'jenisKecelakaan': jeniskecelakaanController.text,
+                            'jumlahKendaraan': jumlahController.text,
+                            'jenisKendaraan': jeniskendaraanController.text,
+                          };
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NextPelaporanKecelakaanView(
+                                kecelakaanData: kecelakaanData,
+                              ),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryButtonColor,
+                          minimumSize: const Size(100, 33),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                         ),
-                      ),
-                      child: const Text(
-                        "Selanjutnya",
-                        style: TextStyle(color: Colors.white),
-                      ))
+                        child: const Text(
+                          "Selanjutnya",
+                          style: TextStyle(color: Colors.white),
+                        ))
                   ],
                 ),
               ),

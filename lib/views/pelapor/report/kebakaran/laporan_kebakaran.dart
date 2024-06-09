@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jember_siaga/utils/colors.dart';
-import 'package:jember_siaga/views/pelapor/report/kriminal/next_laporan_kriminal.dart';
+import 'package:provider/provider.dart';
+import 'package:jember_siaga/provider/report_provider.dart';
 import 'package:jember_siaga/widgets/custom_textfield.dart';
 
 class LaporanKebakaranView extends StatefulWidget {
@@ -153,29 +153,23 @@ class _LaporanKebakaranViewState extends State<LaporanKebakaranView> {
                 controller: aksesController,
                 hintText: "cth: gang super kecil",
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: secondaryButtonColor,
-                        minimumSize: const Size(300, 48),
-                      ),
-                      child: const Text(
-                        "Kirim Laporan",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                    )
-                  ],
-                ),
+              const SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final provider = Provider.of<ReportProvider>(context, listen: false);
+                  provider.addReportKebakaran(
+                    nama: namaController.text,
+                    alamat: alamatController.text,
+                    telepon: teleponController.text,
+                    jenis: jenisController.text,
+                    tinggiluas: tinggiluasController.text,
+                    akses: aksesController.text,
+                  );
+                  Navigator.pop(context);
+                },
+                child: const Text('Submit'),
               ),
             ],
           ),

@@ -14,10 +14,9 @@ class ReportProvider extends ChangeNotifier {
   }) async {
     try {
       final QuerySnapshot reportSnapshot =
-          await _firestore.collection('report').limit(1).get();
+          await _firestore.collection('report').get();
 
-      final String docId =
-          reportSnapshot.docs.isNotEmpty ? reportSnapshot.docs.first.id : '';
+      final String docId = reportSnapshot.docs.first.id;
 
       await _firestore
           .collection('report')
