@@ -1,12 +1,10 @@
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-// import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:jember_siaga/utils/colors.dart';
 import 'package:jember_siaga/widgets/custom_textfield.dart';
-import 'package:provider/provider.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:jember_siaga/provider/kriminal_provider.dart';
 
 class NextLaporanKriminalView extends StatefulWidget {
@@ -32,7 +30,9 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
   late TextEditingController jenisController;
   late TextEditingController catatanController;
   late TextEditingController fisikController;
-  String? imagePath;
+  File? imageFile;
+
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
@@ -48,6 +48,18 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
     catatanController.dispose();
     fisikController.dispose();
     super.dispose();
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+    } else {
+      print("No image selected");
+    }
   }
 
   @override
@@ -112,20 +124,7 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
             ),
             const SizedBox(height: 7),
             ElevatedButton(
-              onPressed: () async {
-                FilePickerResult? result = await FilePicker.platform.pickFiles(
-                  type: FileType.custom,
-                  allowedExtensions: ['jpg', 'png', 'jpeg'],
-                );
-
-                if (result != null) {
-                  setState(() {
-                    imagePath = result.files.single.path;
-                  });
-                } else {
-                  print("No file selected");
-                }
-              },
+              onPressed: _pickImage,
               style: ElevatedButton.styleFrom(
                 backgroundColor: primaryButtonColor,
                 minimumSize: const Size(300, 48),
@@ -146,12 +145,21 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
                 children: [
                   ElevatedButton(
                     onPressed: () async {
+                      if (imageFile == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Please select an image."),
+                          ),
+                        );
+                        return;
+                      }
+
                       String? downloadUrl;
                       try {
                         downloadUrl = await Provider.of<KriminalProvider>(
                                 context,
                                 listen: false)
-                            .uploadFile(imagePath as File);
+                            .uploadFile(imageFile!);
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
