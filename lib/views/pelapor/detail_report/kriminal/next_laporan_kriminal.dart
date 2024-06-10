@@ -17,6 +17,7 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
   late TextEditingController jenisController;
   late TextEditingController catatanController;
   late TextEditingController fisikController;
+  String? imagePath;
 
   @override
   void initState() {
@@ -36,7 +37,6 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -104,7 +104,9 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
                 );
 
                 if (result != null) {
-                  File file = File(result.files.single.path!);
+                  setState(() {
+                    imagePath = result.files.single.path;
+                  });
                 } else {
                   print("No file selected");
                 }
@@ -121,7 +123,6 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
                     fontSize: 16),
               ),
             ),
-            
           ],
         ),
       ),

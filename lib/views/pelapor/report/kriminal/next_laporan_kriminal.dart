@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 // import 'package:file_picker/file_picker.dart';
 import 'package:jember_siaga/utils/colors.dart';
@@ -31,7 +32,7 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
   late TextEditingController jenisController;
   late TextEditingController catatanController;
   late TextEditingController fisikController;
-  File? selectedFile;
+  String? imagePath;
 
   @override
   void initState() {
@@ -112,19 +113,17 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
             const SizedBox(height: 7),
             ElevatedButton(
               onPressed: () async {
-                final XFile? image =
-                    await ImagePicker().pickImage(source: ImageSource.gallery);
-                if (image != null) {
+                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                  type: FileType.custom,
+                  allowedExtensions: ['jpg', 'png', 'jpeg'],
+                );
+
+                if (result != null) {
                   setState(() {
-                    selectedFile = File(image.path);
+                    imagePath = result.files.single.path;
                   });
                 } else {
                   print("No file selected");
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("No file selected"),
-                    ),
-                  );
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -152,7 +151,7 @@ class _NextLaporanKriminalViewState extends State<NextLaporanKriminalView> {
                         downloadUrl = await Provider.of<KriminalProvider>(
                                 context,
                                 listen: false)
-                            .uploadFile(selectedFile!);
+                            .uploadFile(imagePath as File);
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
